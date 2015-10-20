@@ -1,0 +1,25 @@
+There are two ways to invoke the demonstration script.
+
+The first one is without arguments. In this case, it will try to guess the path to the executable of Chrome and launch it.
+Immediately after that, the hooks are created and attached to the process.
+
+The second way is to invoke it with a list of PIDs in this fashion:
+  python3 ChromeAudioCaptureSandbox.py pid1 pid2 pid3 ... pidn
+In this case, it will attach the created hooks to the specified PIDs.
+
+
+
+Known Issues:
+  Hooking the Chrome processes when the hotword NaCl module is running may crash Chrome.
+We think it is normal for this to happen because at that point Chrome assumes the existence of a recording device.
+The fact that we attach to it and trick it into thinking there is no such device is outside the possible normal execution flows.
+Normally, the unavailability of a device would be notified through an unplug event.
+
+			# Sin embargo, hookear los procesos cuando ya está corriendo el módulo de Native Client resulta en una explosión catastrófica al decir "Ok Google"
+			# Posiblemente el módulo no contempla la desaparición sin previo aviso de un micrófono o dispositivo de captura.
+			
+			# Chrome instantiates an MMDeviceEnumerator object to select the recording device.
+			# It is possible to hook more specific functionality: it involves hooking the interface of the COM object.
+			# In this case in particular MMDeviceEnumerator is used to instantiate AudioClient and AudioCaptureClient objects later on.
+			# This is done through the Activate() method. Hooking that method can be done to obtain more fine-grained control over the execution flow.
+			# Skipping the call is enough for demonstration purposes.
