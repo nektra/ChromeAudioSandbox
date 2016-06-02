@@ -1,3 +1,5 @@
+Code for the "Is Google Spying on You? How to Quickly Craft an Ad Hoc Security Sandbox" article (http://blog.nektra.com/main/2015/10/22/is-google-spying-on-you-how-to-quickly-craft-an-ad-hoc-security-sandbox/)
+
 Requisites: 
   1. Python 3 (tested with Python 3.4.3) with its pywin32 bindings.
   2. Deviare COM registration.
